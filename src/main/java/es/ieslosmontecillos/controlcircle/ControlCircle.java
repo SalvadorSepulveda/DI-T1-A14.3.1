@@ -1,6 +1,9 @@
 package es.ieslosmontecillos.controlcircle;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -8,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
 
 public class ControlCircle extends Application {
 
@@ -30,8 +32,8 @@ public class ControlCircle extends Application {
         Button shrinkButton = new Button("Shrink");
 
         // Asignar los eventos a los botones
-        enlargeButton.setOnAction(event -> enlargeCircle());
-        shrinkButton.setOnAction(event -> shrinkCircle());
+        enlargeButton.setOnAction(new EnlargeCircleClass());
+        shrinkButton.setOnAction(new ShrinkCircleClass());
 
         // Crear un contenedor para los botones
         HBox buttonContainer = new HBox(enlargeButton, shrinkButton);
@@ -49,11 +51,19 @@ public class ControlCircle extends Application {
         primaryStage.show();
     }
 
-    private void enlargeCircle() {
-        circle.setRadius(circle.getRadius() + 10);
+
+    // Clases para los eventos
+    private class EnlargeCircleClass implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            circle.setRadius(circle.getRadius() + 10);
+        }
     }
 
-    private void shrinkCircle() {
-        circle.setRadius(circle.getRadius() - 10);
+    private class ShrinkCircleClass implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            circle.setRadius(circle.getRadius() - 10);
+        }
     }
 }
